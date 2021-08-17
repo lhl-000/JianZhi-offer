@@ -1,0 +1,49 @@
+ # 24 反转链表
+
+### 题目
+
+定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点
+
+
+### 解答
+
+
+##### 1. 快慢双指针
+```
+/JAVA/
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode fast = head.next;
+        ListNode slow = head;
+        while (fast != null) {
+            ListNode node = fast.next;
+            fast.next = slow;
+            slow = fast;
+            fast = node;
+        }
+        head.next = null;
+        return slow;
+    }
+}
+```
+##### 2. 递归
+```
+/js/
+var reverseList = function(head) {
+    if (head == null) return null;
+    var callbackReverseList = function(head) {
+        if (head.next == null) {
+            return head;
+        }
+        let node = callbackReverseList(head.next);
+        head.next.next = head;
+        return node;
+    }
+    var res = callbackReverseList(head);
+    head.next = null;
+    return res;
+};
+```
